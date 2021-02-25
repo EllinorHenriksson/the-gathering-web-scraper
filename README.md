@@ -4,7 +4,7 @@ In this assignment, you got to help three friends, Peter, Paul, and Mary, with p
 
 The friends have their calendars available online on a website, and the cinema and restaurant they visit also have websites. The friends realize that the planning of an evening should be able to be automated but do not know how to do it. What they do know is that they definitely do not need a GUI and want to run the application from a command prompt, and that Peter prefers Windows, Paul prefers macOS and Mary prefers Linux (#1).
 
-Your task is to help the three friends by writing a web scraper that scrapes and analyzes data from the mentioned websites (explicitly built for this task). The application should be so generally written that it can handle two different start URLs, https://cscloud6-127.lnu.se/scraper-site-1 and https://cscloud6-127.lnu.se/scraper-site-2. (#3)
+Your task is to help the three friends by writing a web scraper that scrapes and analyzes data from the mentioned websites (explicitly built for this task). The application should be so generally written that it can handle two different start URLs, https://courselab.lnu.se/scraper-site-1 and https://courselab.lnu.se/scraper-site-2. (#3)
 
 When starting the application, the start URL must be passed as an argument. The URLs are each leading to three other websites. It is irrelevant how these websites work under the hood. The interesting part is the HTML rendered and how to make HTTP requests to retrieve data. It does not matter which URL the application starts with because the websites are nearly the same, and only the data scraped differs, and thus the suggestions the application finally lists.
 
