@@ -1,8 +1,8 @@
 # Assignment A2 - The Gathering Web Scraper
 
-In this assignment, you got to help three friends, Peter, Paul, and Mary, with planning their once a month gathering. Once a month, they gather to watch a movie and then dine at their favorite restaurant. It is quite difficult for the friends to plan a gathering because they first have to find at least one day when everyone can then find a movie, to finally find a time when a table is free to book at the restaurant.
+In this assignment, you got to help three friends, Peter, Paul, and Mary, plan their once-a-month gathering. Once a month, they gather to watch a movie and then dine at their favorite restaurant. It is quite difficult for the friends to plan a gathering because they first have to find at least one day when everyone can find a movie and finally find a time when a table is free to book at the restaurant.
 
-The friends have their calendars available online on a website, and the cinema and restaurant they visit also have websites. The friends realize that the planning of an evening should be able to be automated but do not know how to do it. What they do know is that they definitely do not need a GUI and want to run the application from a command prompt, and that Peter prefers Windows, Paul prefers macOS and Mary prefers Linux (#1).
+The friends have their calendars available online on a website, and the cinema and restaurant they visit also have websites. The friends realize that the planning of an evening should be automated but do not know how to do it. They know that they do not need a GUI and want to run the application from a command prompt and that Peter prefers Windows, Paul prefers macOS, and Mary prefers Linux (#1).
 
 Your task is to help the three friends by writing a web scraper that scrapes and analyzes data from the mentioned websites (explicitly built for this task). The application should be so generally written that it can handle two different start URLs, https://courselab.lnu.se/scraper-site-1 and https://courselab.lnu.se/scraper-site-2. (#3)
 
@@ -23,11 +23,11 @@ The varying `href` attribute values are to verify your scraping code does not us
 
 ### The start URL
 
-The application must start by scraping the links on the web page given by the start URL and continue from there.
+The application must start by scraping the links on the web page given by the start URL and continue.
 
 ### The calendar
 
-The web pages are built using simple HTML, and the task is to scrape the pages and analyze which days all three friends can gather. The friends have already decided that they will meet on Fridays, Saturdays, and Sundays, so there is no need to look for any other days (#5).
+The web pages are built using simple HTML, and the task is to scrape the pages and analyze which days all three friends can gather. The friends have already decided to meet on Fridays, Saturdays, and Sundays, so there is no need to look for any other days (#5).
 
 ### The cinema
 
@@ -39,7 +39,7 @@ Use the browser's inspector to analyze the traffic.
 
 ### The restaurant
 
-The third website is for the three friends' favorite restaurant (the only one they visit). The application must log in, by the login credentials below, to scrape what times they can book a table.
+The third website is for the three friends' favorite restaurant (the only one they visit). By the login credentials below, the application must log in to scrape what times they can book a table.
 
 <table>
   <tr>
@@ -67,13 +67,13 @@ The website uses session cookies for authorization, which the application must h
 
 ## Requirements
 
-You must use the repository created for you and this assignment and make continuous commits, so it is possible to follow the web scraper's creation. Make sure that no more files than necessary are committed to the repository. (#9)
+You must use the repository created for you and this assignment and make continuous commits so it is possible to follow the web scraper's creation. Make sure that no more files than necessary are committed to the repository. (#9)
 
 You must write the web scraper as a Node.js application (#1) and follow the course's coding standard (#10). You must split your source code into several modules (#12). Of course, you need to document and comment on the source code (#11).
 
 After cloning the repository with the application's source code and running `npm install`, it must be easy to lint the source code and run the application. Therefore, be sure to add the script `start` and `lint` to the "scripts" field in the `package.json` file. (#14)
 
-When running the web scraper, the user must pass the start URL as an argument (#2, #3). That is the only input the user should do during the scrape process (#2). Below is an example of how to start the scraper, using https://cscloud6-127.lnu.se/scraper-site-1 as the start URL:
+The user must pass the start URL as an argument (#2, #3). That is the only input the user should do during the scrape process (#2). Below is an example of how to start the scraper, using https://cscloud6-127.lnu.se/scraper-site-1 as the start URL:
 
 ```shell
 npm start https://cscloud6-127.lnu.se/scraper-site-1
@@ -81,7 +81,7 @@ npm start https://cscloud6-127.lnu.se/scraper-site-1
 
 You are free to use whichever userland module you want (except if there is one out there with the complete solution). Do not forget to ensure, as far as possible, that the module is safe to use. (#13)
 
-The web scraper must present the suggestions in a terminal window according to the details below (#7).
+According to the details below, the web scraper must present the suggestions in a terminal window (#7).
 
 ## The output
 
@@ -101,7 +101,7 @@ Suggestions
 * On Friday, "A Day at the Races" begins at 16:00, and there is a free table to book between 18:00-20:00.
 ```
 
-The result should not be more verbose than this. Be sure to delete all other statements printing to the terminal before submitting. The suggestions above are the correct ones for the first start URL, and you can use it to verify the output from your scraper.
+The result should not be more verbose than this. Be sure to delete all other statements printing to the terminal before submitting. The suggestions above are the correct ones for the first start URL, and you can use them to verify the output from your scraper.
 
 ### Using the second start URL
 
