@@ -5,4 +5,16 @@
  * @version 1.0.0
  */
 
-console.log("Hello World!")
+import { Application } from './application.js'
+
+function main () {
+    try {
+        const url = process.argv[2]
+        const app = new Application(url)
+        app.run()
+    } catch (error) {
+        console.error(error.message)
+    }
+}
+
+main()
