@@ -55,6 +55,9 @@ export class Application {
   async run () {
     // Scrape link for urls to calendar, cinema and restaurant
     const linkScraper = new LinkScraper()
-    const linksPromise = await linkScraper.scrapeLinks(url)
+    const linksObject = await linkScraper.scrapeLinks(url)
+
+    // FORTSÄTT HÄR!!!
+    // Start two asyncronus tasks (check movies, check restaurant - for the day(s) when all friends can meet)
   }
 }
