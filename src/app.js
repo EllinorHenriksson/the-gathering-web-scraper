@@ -11,7 +11,8 @@ function main () {
     try {
         const url = process.argv[2]
         const app = new Application(url)
-        app.run()
+        await app.run()
+        // Done with run()
     } catch (error) {
         console.error(error.message)
     }

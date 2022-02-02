@@ -6,6 +6,7 @@
  */
 
 import validator from 'validator'
+import { LinkScraper } from './link-scraper.js'
 
 /**
  * Represents a Node application.
@@ -48,7 +49,12 @@ export class Application {
     }
   }
 
-  run () {
-    // FORTSÄTT HÄR
+  /**
+   * Runs the application.
+   */
+  async run () {
+    // Scrape link for urls to calendar, cinema and restaurant
+    const linkScraper = new LinkScraper()
+    const linksPromise = await linkScraper.scrapeLinks(url)
   }
 }
