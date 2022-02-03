@@ -5,8 +5,9 @@
  * @version 1.0.0
  */
 
+import { Calendar } from './calendar.js'
 import validator from 'validator'
-import { LinkScraper } from './link-scraper.js'
+import { StartPage } from './start-page.js'
 
 /**
  * Represents a Node application.
@@ -25,7 +26,7 @@ export class Application {
    * @param {string} url - The URL to scrape.
    */
   constructor (url) {
-    this.url = url
+    this.#url = url
   }
 
   /**
@@ -53,9 +54,13 @@ export class Application {
    * Runs the application.
    */
   async run () {
-    // Scrape link for urls to calendar, cinema and restaurant
-    const linkScraper = new LinkScraper()
-    const linksObject = await linkScraper.scrapeLinks(url)
+    // Scrape start page for links to calendar, cinema and restaurant.
+    const startPage = new StartPage(this.#url)
+    const links = await startPage.getLinks()
+
+    // Scrape calendar page for links to Paul, Peter and Mary.
+    const calendar = new Calendar(links.calendar)
+    const freeDays = await calendar.freeDaysAll()
 
     // FORTSÄTT HÄR!!!
     // Start two asyncronus tasks (check movies, check restaurant - for the day(s) when all friends can meet)
