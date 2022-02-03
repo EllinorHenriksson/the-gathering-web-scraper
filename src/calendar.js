@@ -45,8 +45,31 @@ export class Calendar {
     const freeDaysPeterPromise = this.#freeDays(linksToCalendars.peter)
     const freeDaysMaryPromise = this.#freeDays(linksToCalendars.mary)
 
-    const freeDays = await Promise.all(freeDaysPaulPromise, freeDaysPeterPromise, freeDaysMaryPromise)
-    return [...new Set(freeDays.flat())]
+    const freeDays = await Promise.all([freeDaysPaulPromise, freeDaysPeterPromise, freeDaysMaryPromise])
+
+    let fridayCount = 0
+    let saturdayCount = 0
+    let sundayCount = 0
+    freeDays.flat().forEach(day => {
+      if (day === 'Friday') {
+        fridayCount++
+      } else if (day === 'Saturday') {
+        saturdayCount++
+      } else if (day === 'Sunday') {
+        sundayCount++
+      }
+    })
+
+    const freeDaysAll = []
+    if (fridayCount === 3) {
+      freeDaysAll.push('Friday')
+    } else if (saturdayCount === 3) {
+      freeDaysAll.push('Saturday')
+    } else if (sundayCount === 3) {
+      freeDaysAll.push('Sunday')
+    }
+
+    return freeDaysAll
   }
 
   /**
@@ -89,24 +112,25 @@ export class Calendar {
    * @returns {string []} An array with the free days.
    */
   async #freeDays (url) {
-    const allDays = await this.#webScraper.scrapeText(url, 'td').map(text => text.toLowerCase())
+    const allDays = await this.#webScraper.scrapeText(url, 'td')
+    const allDaysLowerCase = allDays.map(text => text.toLowerCase())
 
     const freeDays = []
-    for (let i = 0; i < allDays; i++) {
+    for (let i = 0; i < allDaysLowerCase.length; i++) {
       let day
       switch (i) {
         case 0:
-          day = 'friday'
+          day = 'Friday'
           break
         case 1:
-          day = 'saturday'
+          day = 'Saturday'
           break
         case 2:
-          day = 'sunday'
+          day = 'Sunday'
           break
       }
 
-      if (allDays[i].includes('ok')) {
+      if (allDaysLowerCase[i].includes('ok')) {
         freeDays.push(day)
       }
     }

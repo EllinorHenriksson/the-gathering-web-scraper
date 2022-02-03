@@ -7,6 +7,7 @@
 
 import fetch from 'node-fetch'
 import { JSDOM } from 'jsdom'
+import validator from 'validator'
 
 /**
  * Represents a web scraper.
@@ -19,8 +20,26 @@ export class WebScraper {
    * @returns {string[array]} An array with the scraped links.
    */
   async scrapeLinks (url) {
+    if (!url.endsWith('/')) {
+      url += '/'
+    }
+
     const dom = await this.#getDom(url)
-    return Array.from(dom.window.document.querySelectorAll('a[href^="http://"], a[href^="https://"]')).map(ancor => ancor.href)
+    const links = Array.from(dom.window.document.querySelectorAll('a[href]')).map(ancor => ancor.href)
+
+    const absoluteLinks = links.map(link => {
+      if (link.startsWith('./')) {
+        return url + link.slice(2)
+      } else if (link.startsWith('http')) {
+        return link
+      } else {
+        throw new Error('At least one of the scraped links does not start with http or ./')
+      }
+    })
+
+    this.#checkLinks(absoluteLinks)
+
+    return absoluteLinks
   }
 
   /**
@@ -57,5 +76,18 @@ export class WebScraper {
     if (!response.ok) {
       throw new Error(`HTTP Error Response: ${response.status} ${response.statusText}`)
     }
+  }
+
+  /**
+   * Checks if the scraped links are valid URLs.
+   *
+   * @param {string[]} links - The links to check.
+   */
+  #checkLinks (links) {
+    links.forEach(link => {
+      if (!validator.isURL(link)) {
+        throw new Error(`${link} is not a valid URL.`)
+      }
+    })
   }
 }

@@ -58,7 +58,7 @@ export class Application {
     const startPage = new StartPage(this.#url)
     const links = await startPage.getLinks()
 
-    // Scrape calendar page for links to Paul, Peter and Mary.
+    // Scrape calendar page for links to Paul, Peter and Mary, and scrape their pages for free days.
     const calendar = new Calendar(links.calendar)
     const freeDays = await calendar.freeDaysAll()
 
