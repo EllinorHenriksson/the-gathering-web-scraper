@@ -8,7 +8,7 @@
 /**
  * Represents the dinner page.
  */
-export class Cinema {
+export class Dinner {
   /**
    * The url of the dinner page.
    *
@@ -22,27 +22,10 @@ export class Cinema {
    * @param {string} url - The URL of the dinner page.
    */
   constructor (url) {
-    this.url = url
-  }
-
-  /**
-   * Gets the value of this.#url.
-   *
-   * @returns {string} The url.
-   */
-  get url () {
-    return this.#url
-  }
-
-  /**
-   * Sets the value of this.#url to url, with modifications if necessary.
-   *
-   * @param {string} url - The url.
-   */
-  set url (url) {
-    if (!url.endsWith('/')) {
-      url += '/'
-    }
     this.#url = url
+  }
+
+  getFreeTables (day) {
+    return []
   }
 }

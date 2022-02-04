@@ -8,6 +8,7 @@
 import { StartPage } from './start-page.js'
 import { Calendar } from './calendar.js'
 import { Cinema } from './cinema.js'
+import { Dinner } from './dinner.js'
 import validator from 'validator'
 
 /**
@@ -63,15 +64,18 @@ export class Application {
     const calendar = new Calendar(links.calendar)
     const freeDays = await calendar.getFreeDaysAll()
 
-    // FORTSÄTT HÄR!!!
-    // Start two asyncronus tasks (check movies, check restaurant - for the day(s) when all friends can meet)
+    // Start two asyncronus tasks (check movies, check free tables - for the day(s) when all friends can meet).
 
-    // Get movies
+    // Check movies
     const cinema = new Cinema(links.cinema)
-    const moviesPromises = freeDays.map(day => cinema.getMovies(day))
+    const moviesPromises = freeDays.map(async day => await cinema.getMovies(day))
 
-    // Get free tables
+    const movies = await Promise.all([...moviesPromises])
+
+    // Check free tables
     const dinner = new Dinner(links.dinner)
-    const freeTablesPromises = freeDays.map(day => dinner.getFreeTables(day))
+    const freeTablesPromises = freeDays.map(day => dinner.getFreeTables(day)) // FORTSÄTT HÄR!!!
+
+    // Resolve moviesPromises and freeTablesPromises
   }
 }

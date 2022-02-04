@@ -24,27 +24,6 @@ export class Cinema {
    * @param {string} url - The URL of the cinema page.
    */
   constructor (url) {
-    this.url = url
-  }
-
-  /**
-   * Gets the value of this.#url.
-   *
-   * @returns {string} The url.
-   */
-  get url () {
-    return this.#url
-  }
-
-  /**
-   * Sets the value of this.#url to url, with modifications if necessary.
-   *
-   * @param {string} url - The url.
-   */
-  set url (url) {
-    if (!url.endsWith('/')) {
-      url += '/'
-    }
     this.#url = url
   }
 
@@ -110,12 +89,13 @@ export class Cinema {
    */
   async #getShowsForMovie (movieNumber, dayNumber) {
     const response = await fetch(`${this.#url}check?day=${dayNumber}&movie=${movieNumber}`)
-    const body = await response.json()
-    const shows = []
+    const text = await response.text()
+    const data = JSON.parse(text)
 
-    for (let i = 0; i < body.length; i++) {
-      if (body[i].status === 1) {
-        shows.push(body[i].time)
+    const shows = []
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].status === 1) {
+        shows.push(data[i].time)
       }
     }
 

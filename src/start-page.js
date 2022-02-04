@@ -35,7 +35,13 @@ export class StartPage {
   async getLinks () {
     const webScraper = new WebScraper()
     const links = await webScraper.scrapeLinks(this.#url)
-    return this.#sortLinks(links)
+    const adjustedLinks = links.map(link => {
+      if (!link.endsWith('/')) {
+        link += '/'
+      }
+      return link
+    })
+    return this.#sortLinks(adjustedLinks)
   }
 
   /**
