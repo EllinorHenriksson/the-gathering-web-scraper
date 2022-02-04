@@ -5,9 +5,10 @@
  * @version 1.0.0
  */
 
-import { Calendar } from './calendar.js'
-import validator from 'validator'
 import { StartPage } from './start-page.js'
+import { Calendar } from './calendar.js'
+import { Cinema } from './cinema.js'
+import validator from 'validator'
 
 /**
  * Represents a Node application.
@@ -60,9 +61,17 @@ export class Application {
 
     // Scrape calendar page for links to Paul, Peter and Mary, and scrape their pages for free days.
     const calendar = new Calendar(links.calendar)
-    const freeDays = await calendar.freeDaysAll()
+    const freeDays = await calendar.getFreeDaysAll()
 
     // FORTSÄTT HÄR!!!
     // Start two asyncronus tasks (check movies, check restaurant - for the day(s) when all friends can meet)
+
+    // Get movies
+    const cinema = new Cinema(links.cinema)
+    const moviesPromises = freeDays.map(day => cinema.getMovies(day))
+
+    // Get free tables
+    const dinner = new Dinner(links.dinner)
+    const freeTablesPromises = freeDays.map(day => dinner.getFreeTables(day))
   }
 }

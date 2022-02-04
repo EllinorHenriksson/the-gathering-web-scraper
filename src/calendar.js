@@ -39,11 +39,11 @@ export class Calendar {
    *
    * @returns {string[]} An array with the days.
    */
-  async freeDaysAll () {
+  async getFreeDaysAll () {
     const linksToCalendars = await this.#getLinks()
-    const freeDaysPaulPromise = this.#freeDays(linksToCalendars.paul)
-    const freeDaysPeterPromise = this.#freeDays(linksToCalendars.peter)
-    const freeDaysMaryPromise = this.#freeDays(linksToCalendars.mary)
+    const freeDaysPaulPromise = this.#getFreeDays(linksToCalendars.paul)
+    const freeDaysPeterPromise = this.#getFreeDays(linksToCalendars.peter)
+    const freeDaysMaryPromise = this.#getFreeDays(linksToCalendars.mary)
 
     const freeDays = await Promise.all([freeDaysPaulPromise, freeDaysPeterPromise, freeDaysMaryPromise])
 
@@ -111,7 +111,7 @@ export class Calendar {
    * @param {string} url - The url to the persons calendar.
    * @returns {string []} An array with the free days.
    */
-  async #freeDays (url) {
+  async #getFreeDays (url) {
     const allDays = await this.#webScraper.scrapeText(url, 'td')
     const allDaysLowerCase = allDays.map(text => text.toLowerCase())
 
