@@ -5,6 +5,8 @@
  * @version 1.0.0
  */
 
+import { WebScraper } from './web-scraper.js'
+
 /**
  * Represents the dinner page.
  */
@@ -25,7 +27,25 @@ export class Dinner {
     this.#url = url
   }
 
-  getFreeTables (day) {
-    return []
+  async getFreeTables (day) {
+    const webScraper = new WebScraper()
+
+    const params = new URLSearchParams()
+    params.append('username', 'zeke')
+    params.append('password', 'coys')
+
+    const options = {
+      method: 'POST',
+      body: params,
+      redirect: 'manual'
+    }
+
+    const freeTables = await webScraper.scrapeValue(this.#url + 'login', options, 'input[type="radio"]')
+
+    // FORTSÄTT HÄR!!!
+
+    // Filtrera för den aktuella dagen
+
+    // return []
   }
 }
