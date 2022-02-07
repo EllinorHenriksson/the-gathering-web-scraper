@@ -68,13 +68,15 @@ export class Application {
 
     // Check movies
     const cinema = new Cinema(links.cinema)
-    const moviesPromises = freeDays.map(async day => await cinema.getMovies(day))
+    const moviesPromises = freeDays.map(day => cinema.getMovies(day))
 
-    const movies = await Promise.all([...moviesPromises])
+    const movies = await Promise.all([...moviesPromises]) // Glöm ej att ta bort detta!
 
     // Check free tables
     const dinner = new Dinner(links.dinner)
     const freeTablesPromises = freeDays.map(day => dinner.getFreeTables(day)) // FORTSÄTT HÄR!!!
+
+    const freeTables = await Promise.all([...freeTablesPromises]) // Glöm ej att ta bort detta!
 
     // Resolve moviesPromises and freeTablesPromises
   }
