@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-import fetch from 'node-fetch'
+import { WebScraper } from './web-scraper.js'
 
 /**
  * Represents the cinema page.
@@ -88,9 +88,8 @@ export class Cinema {
    * @returns {string[]} The show times for the movie, that day.
    */
   async #getShowsForMovie (movieNumber, dayNumber) {
-    const response = await fetch(`${this.#url}check?day=${dayNumber}&movie=${movieNumber}`)
-    const text = await response.text()
-    const data = JSON.parse(text)
+    const webScraper = new WebScraper()
+    const data = await webScraper.scrapeData(`${this.#url}check?day=${dayNumber}&movie=${movieNumber}`)
 
     const shows = []
     for (let i = 0; i < data.length; i++) {

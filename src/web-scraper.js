@@ -68,6 +68,18 @@ export class WebScraper {
   }
 
   /**
+   * Scrapes JSON data from the passed URL.
+   *
+   * @param {string} url - The URL to scrape.
+   * @returns {*} A value of the data type corresponding to the given JSON text.
+   */
+  async scrapeData (url) {
+    const response = await this.#getResponse(url)
+    const text = await response.text()
+    return JSON.parse(text)
+  }
+
+  /**
    * Returns a JSDOM object with the text of a requested page.
    *
    * @param {string} url - The url of the requested page.
