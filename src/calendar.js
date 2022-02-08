@@ -116,6 +116,12 @@ export class Calendar {
     return freeDays
   }
 
+  /**
+   * Filters the days when all are free into a new array and returns it.
+   *
+   * @param {Array[]} freeDays - Contains arrays for each person with days when he/she is free.
+   * @returns {string[]} An array with the days when all are free.
+   */
   #filterFreeDays (freeDays) {
     let fridayCount = 0
     let saturdayCount = 0
