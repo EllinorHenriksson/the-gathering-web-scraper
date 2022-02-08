@@ -158,7 +158,7 @@ export class Application {
    */
   #printSuggestions (suggestions) {
     const suggestionsText = this.#turnSuggestionsIntoText(suggestions)
-    console.log('Suggestions\n===========')
+    console.log('\nSuggestions\n===========')
     suggestionsText.forEach(suggestion => console.log(suggestion))
   }
 
