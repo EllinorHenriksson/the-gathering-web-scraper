@@ -86,8 +86,7 @@ export class Application {
     const movies = await Promise.all([...moviesPromises])
     const freeTables = await Promise.all([...freeTablesPromises])
 
-    // FORTSÄTT HÄR!!!
-    // Jämför freeDays, movies och freeTables
+    // Suggest day, movie and table to book.
     const suggestions = this.#getSuggestions(freeDays, movies, freeTables)
     this.#printSuggestions(suggestions)
   }
@@ -135,10 +134,11 @@ export class Application {
   }
 
   /**
-   * 
-   * @param {*} table 
-   * @param {*} show 
-   * @returns 
+   * Compares a table to a movie show. Returns true if the table is free at least 2 h after the show, otherwise false.
+   *
+   * @param {string} table - The table (value is a string representing the time).
+   * @param {string} show - The show (value is a string representing the time).
+   * @returns {boolean} True if table is free at least 2 h after show, otherwise false.
    */
   #compareTableToShow (table, show) {
     const tableInt = parseInt(table.slice(0, 2))
