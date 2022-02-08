@@ -63,9 +63,13 @@ export class Calendar {
     const freeDaysAll = []
     if (fridayCount === 3) {
       freeDaysAll.push('Friday')
-    } else if (saturdayCount === 3) {
+    }
+
+    if (saturdayCount === 3) {
       freeDaysAll.push('Saturday')
-    } else if (sundayCount === 3) {
+    }
+
+    if (sundayCount === 3) {
       freeDaysAll.push('Sunday')
     }
 
