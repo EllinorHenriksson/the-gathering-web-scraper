@@ -56,8 +56,7 @@ export class Calendar {
    * @returns {object} An object with the links paired with keys for each person.
    */
   async #getLinks () {
-    const links = await this.#webScraper.scrapeLinks(this.#url) // FORTSÄTT HÄR!!! Se till att relativa länkar tas med
-    // och konkatenera med början av den absoluta url:en.
+    const links = await this.#webScraper.scrapeLinks(this.#url)
     return this.#sortLinks(links)
   }
 
