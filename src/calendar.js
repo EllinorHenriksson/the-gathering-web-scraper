@@ -47,33 +47,7 @@ export class Calendar {
 
     const freeDays = await Promise.all([freeDaysPaulPromise, freeDaysPeterPromise, freeDaysMaryPromise])
 
-    let fridayCount = 0
-    let saturdayCount = 0
-    let sundayCount = 0
-    freeDays.flat().forEach(day => {
-      if (day === 'Friday') {
-        fridayCount++
-      } else if (day === 'Saturday') {
-        saturdayCount++
-      } else if (day === 'Sunday') {
-        sundayCount++
-      }
-    })
-
-    const freeDaysAll = []
-    if (fridayCount === 3) {
-      freeDaysAll.push('Friday')
-    }
-
-    if (saturdayCount === 3) {
-      freeDaysAll.push('Saturday')
-    }
-
-    if (sundayCount === 3) {
-      freeDaysAll.push('Sunday')
-    }
-
-    return freeDaysAll
+    return this.#filterFreeDays(freeDays)
   }
 
   /**
@@ -113,7 +87,7 @@ export class Calendar {
    * Returns an array with the days when a person is free.
    *
    * @param {string} url - The url to the persons calendar.
-   * @returns {string []} An array with the free days.
+   * @returns {string[]} An array with the free days.
    */
   async #getFreeDays (url) {
     const allDays = await this.#webScraper.scrapeText(url, 'td')
@@ -140,5 +114,33 @@ export class Calendar {
     }
 
     return freeDays
+  }
+
+  #filterFreeDays (freeDays) {
+    let fridayCount = 0
+    let saturdayCount = 0
+    let sundayCount = 0
+    freeDays.flat().forEach(day => {
+      if (day === 'Friday') {
+        fridayCount++
+      } else if (day === 'Saturday') {
+        saturdayCount++
+      } else if (day === 'Sunday') {
+        sundayCount++
+      }
+    })
+
+    const freeDaysAll = []
+    if (fridayCount === 3) {
+      freeDaysAll.push('Friday')
+    }
+    if (saturdayCount === 3) {
+      freeDaysAll.push('Saturday')
+    }
+    if (sundayCount === 3) {
+      freeDaysAll.push('Sunday')
+    }
+
+    return freeDaysAll
   }
 }
