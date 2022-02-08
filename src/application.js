@@ -151,12 +151,23 @@ export class Application {
     }
   }
 
+  /**
+   * Prints the suggestions of when to go to the cinema and to eat dinner to the console.
+   *
+   * @param {object[]} suggestions - An array with suggestions objects (containing day, movie (title, show) and table keys).
+   */
   #printSuggestions (suggestions) {
     const suggestionsText = this.#turnSuggestionsIntoText(suggestions)
     console.log('Suggestions\n===========')
     suggestionsText.forEach(suggestion => console.log(suggestion))
   }
 
+  /**
+   * Converts suggestion objects to strings and returns them in an array.
+   *
+   * @param {object[]} suggestions - An array with suggestions objects.
+   * @returns {string[]} An arry with the suggestions as strings.
+   */
   #turnSuggestionsIntoText (suggestions) {
     return suggestions.map(suggestion => `* On ${suggestion.day}, "${suggestion.movie.title}" begins at ${suggestion.movie.time}, and there is a free table to book between ${suggestion.table}.`)
   }
