@@ -92,6 +92,14 @@ export class Application {
     this.#printSuggestions(suggestions)
   }
 
+  /**
+   * Returns an arry with suggestions for when it's possible to meet, what movie to watch and when to eat.
+   *
+   * @param {string[]} freeDays - The day(s) when all are free.
+   * @param {object[]} movies - The movies to see that day(s), with title and available shows.
+   * @param {Array[]} freeTables - The free tables that day(s).
+   * @returns {object[]} An array with the suggestions as objects.
+   */
   #getSuggestions (freeDays, movies, freeTables) {
     const suggestions = []
     let day, movieTitle, movieTime, table
