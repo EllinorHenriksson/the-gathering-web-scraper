@@ -19,12 +19,20 @@ export class Cinema {
   #url
 
   /**
+   * A web scraper.
+   *
+   * @type {WebScraper}
+   */
+  #webScraper
+
+  /**
    * Creates an instance of Cinema.
    *
    * @param {string} url - The URL of the cinema page.
    */
   constructor (url) {
     this.#url = url
+    this.#webScraper = new WebScraper()
   }
 
   /**
@@ -34,28 +42,45 @@ export class Cinema {
    * @returns {object} - An object with the movies and their show times.
    */
   async getMovies (day) {
+    const movieTitlesPromise = this.#getMovieTitles()
+
     const dayNumber = this.#convertDayToNumber(day)
 
     const showsMovie1Promise = this.#getShowsForMovie('01', dayNumber)
     const showsMovie2Promise = this.#getShowsForMovie('02', dayNumber)
     const showsMovie3Promise = this.#getShowsForMovie('03', dayNumber)
 
-    const showsAllMovies = await Promise.all([showsMovie1Promise, showsMovie2Promise, showsMovie3Promise])
+    const titlesAndShows = await Promise.all([movieTitlesPromise, showsMovie1Promise, showsMovie2Promise, showsMovie3Promise])
 
     return [
       {
-        movie: 'The Flying Deuces',
-        shows: [...showsAllMovies[0]]
+        movie: titlesAndShows[0]['01'],
+        shows: [...titlesAndShows[1]]
       },
       {
-        movie: 'Keep Your Seats, Please',
-        shows: [...showsAllMovies[1]]
+        movie: titlesAndShows[0]['02'],
+        shows: [...titlesAndShows[2]]
       },
       {
-        movie: 'A Day at the Races',
-        shows: [...showsAllMovies[2]]
+        movie: titlesAndShows[0]['03'],
+        shows: [...titlesAndShows[3]]
       }
     ]
+  }
+
+  /**
+   * Gets the movie title for each movie.
+   *
+   * @returns {object} An object with movie titles.
+   */
+  async #getMovieTitles () {
+    const title1Promise = this.#webScraper.scrapeText(this.#url, '#movie option[value="01"]')
+    const title2Promise = this.#webScraper.scrapeText(this.#url, '#movie option[value="02"]')
+    const title3Promise = this.#webScraper.scrapeText(this.#url, '#movie option[value="03"]')
+
+    const allTitles = (await Promise.all([title1Promise, title2Promise, title3Promise])).flat()
+
+    return { '01': allTitles[0], '02': allTitles[1], '03': allTitles[2] }
   }
 
   /**
@@ -88,8 +113,7 @@ export class Cinema {
    * @returns {string[]} The show times for the movie, that day.
    */
   async #getShowsForMovie (movieNumber, dayNumber) {
-    const webScraper = new WebScraper()
-    const data = await webScraper.scrapeData(`${this.#url}check?day=${dayNumber}&movie=${movieNumber}`)
+    const data = await this.#webScraper.scrapeData(`${this.#url}check?day=${dayNumber}&movie=${movieNumber}`)
 
     const shows = []
     for (let i = 0; i < data.length; i++) {
